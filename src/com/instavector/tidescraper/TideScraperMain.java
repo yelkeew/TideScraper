@@ -63,6 +63,7 @@ public class TideScraperMain {
 					}
 					sb.append("   " + String.format("%-22s", firstColumn.text()) + " | ");
 					state = ParseState.ST_NEW_DAY;
+					enoughTideDataForDay = false;
 					daylightLowTideOccurred = false;
 				}
 				Element lastColumn = columns.get(columns.size() - 1);
