@@ -84,6 +84,11 @@ public class TideScraperMain {
 						} else {
 							sb.append(",");
 						}
+						// Add time & timezone for this daylight low tide
+						Elements timeColumns = columns.select("td.time");
+						Elements timeZoneColumns = columns.select("td.time-zone");
+						String time = String.format(" %-14s", timeColumns.get(0).text() + " " + timeZoneColumns.get(0).text());
+						sb.append(time);
 						for (Element lc : levelColumns) {
 							// Display metric & imperial low tide measurement
 							sb.append(" " + lc.text());
@@ -110,10 +115,11 @@ public class TideScraperMain {
 
 	public static void main(String[] args) {
 
-		String[] locations = { "Half Moon Bay, California", "Huntington Beach", // ", California", // Tide forecase DB
-				// doesn't like "California" in this
-				// case
-				"Providence, Rhode Island", "Wrightsville Beach, North Carolina" };
+		String[] locations = {
+				"Half Moon Bay, California",
+				"Huntington Beach", // ", California", // Tide forecast DB doesn't like "California" for the "Huntington Beach" entry
+				"Providence, Rhode Island",
+				"Wrightsville Beach, North Carolina" };
 
 		TideScraperMain scraper = new TideScraperMain();
 		for (String loc : locations) {
